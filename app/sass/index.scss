@@ -1,0 +1,361 @@
+/*= require foundation */
+/* index.scss - Styles for index page */
+
+$column-gutter: 0;
+
+@import 'main';
+
+*::selection {
+	background-color: #505050;
+	color: #fff;
+}
+
+@mixin translate($x, $y) {
+	transform: translate($x, $y);
+	-o-transform: translate($x, $y);
+	-ms-transform: translate($x, $y);
+	-moz-transform: translate($x, $y);
+	-webkit-transform: translate($x, $y);
+}
+
+@mixin position($x, $y) {
+	left: $x;
+	bottom: $y;
+}
+
+/* Body Overflow helper class */
+.overflow {
+	overflow: visible;
+}
+.no-overflow {
+	overflow: hidden;
+}
+
+.container-wrapper {
+	overflow: hidden;
+}
+.container {
+	position: absolute;
+	top: 0; left: 0; right: 0;
+	z-index: 2;
+    margin: 0 auto;
+    -webkit-backface-visibility: hidden;
+    overflow: hidden;
+    color: #000;
+}
+
+/* Home Section */
+
+$leaf-size: 28px;
+
+.home-wrapper {
+	text-align: left;
+}
+
+/* Map Styles */
+
+.map {
+	background: url('../images/map.jpg') center center no-repeat;
+	background-size: auto 100%;
+	position: relative;
+	margin: 0 auto;
+	.pictures {
+		list-style: none;
+		li {
+			position: absolute;
+			bottom: 0;
+			display: block;
+			width: $leaf-size;
+			height: $leaf-size;
+			a {	
+				display: block;
+				width: $leaf-size;
+				height: $leaf-size;
+				background: url('../images/leaf.png') center center no-repeat;
+				background-size: 100%;
+			}
+			&:nth-child(2) { @include position(55%, 52%); }
+			&:nth-child(3) { @include position(60%, 52%); }
+			&:nth-child(4) { @include position(47%, 55%); }
+			&:nth-child(5) { @include position(51%, 58%); }
+			&:nth-child(6) { @include position(41%, 52%); }
+			&:nth-child(7) { @include position(35%, 50%); }
+			&:nth-child(8) { @include position(30%, 51%); }
+			&:nth-child(9) { @include position(47%, 60%); }
+			&:nth-child(10) { @include position(42%, 58%); }
+			&:nth-child(11) { @include position(35%, 55%); }
+			&:nth-child(12) { @include position(54%, 58%); }
+			&:nth-child(13) { @include position(60%, 55%); }
+			&:nth-child(14) { @include position(60%, 59%); }
+			&:nth-child(15) { @include position(63%, 61%); }
+			&:nth-child(16) { @include position(55%, 62%); }
+			&:nth-child(17) { @include position(58%, 64%); }
+			&:nth-child(18) { @include position(54%, 66%); }
+			&:nth-child(19) { @include position(53%, 72%); }
+			&:nth-child(20) { @include position(47%, 64%); }
+			&:nth-child(21) { @include position(40%, 63%); }
+			&:nth-child(22) { @include position(38%, 66%); }
+			&:nth-child(23) { @include position(37%, 70%); }
+			&:nth-child(24) { @include position(33%, 58%); }
+			&:nth-child(25) { @include position(29%, 60%); }
+			&:nth-child(26) { @include position(29%, 64%); }
+			&:nth-child(27) { @include position(36%, 61%); }
+			&.intro {
+				a {
+					background: none;
+					border-radius: 50%;
+					background-color: rgba(0,0,0,0.2);
+				}
+				@include position(48%, 45%);
+			}
+			&.disabled {
+				background: url('../images/leaf-disabled.png') center center no-repeat;
+				background-size: 100%;
+				a {
+					display: none;
+				}
+			}
+		}
+	}
+}
+
+/* Paintings Section */
+
+$wrapper-width: 80%;
+$painting-width: 40%;
+$detail-width: 28%;
+$information-width: 20%;
+$information-offset: 10%;
+
+.paintings-wrapper {
+	position: absolute;
+	left: 0; right: 0;
+	margin: 0 auto;
+	z-index: 2;
+	width: $wrapper-width;
+	text-align: center;
+	overflow: hidden;
+	.painting {
+		width: $painting-width;
+		margin: 0 auto;
+		.detail {
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: $detail-width;
+			border-radius: 20px;
+		}
+		aside {
+			width: $information-width;
+			position: absolute;
+			right: 0;
+			bottom: $information-offset;
+			text-align: left;
+		}
+	}
+}
+
+/* Arrows for the Paintings Section */
+
+$arrows-offset: 2%;
+
+.arrows {
+	text-align: center;
+	> a {
+		position: absolute;
+		display: block;
+		cursor: pointer;
+		z-index: 3;
+		width: 50px;
+		padding: 10px;
+		font-size: 20px;
+		color: rgba(0,0,0,0.3);
+		border: 1px solid rgba(0,0,0,0.3);
+		border-radius: 50%;
+		@include single-transition(all, 0.3s, ease);
+		&.up {
+			top: $arrows-offset; left: 0; right: 0;
+			margin: 0 auto;
+		};
+		&.down {
+			bottom: $arrows-offset; left: 0; right: 0;
+			margin: 0 auto;
+		};
+		&.left {
+			top: 50%; left: $arrows-offset;
+		};
+		&.right {
+			top: 50%; right: $arrows-offset;
+		};
+		&:hover {
+			border: 1px solid transparent;
+			background-color: rgba(0,0,0,0.3);
+			color: #fff;
+		}
+	}
+}
+
+/* Minimap for the Paintings Section */
+
+$leaf-size: 12px;
+
+.minimap-wrapper {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 20%;
+	z-index: 1;
+	.map {
+		.pictures {
+			li {
+				width: $leaf-size;
+				height: $leaf-size;
+				a {
+					width: $leaf-size;
+					height: $leaf-size;
+					&.current {
+						background: url('../images/leaf-2.png') center center no-repeat;
+						background-size: 100%;
+					}
+				}
+			}
+		}
+		&:before {
+			display: block;
+			content: "-";
+			opacity: 0;
+		}
+	}
+}
+
+/* Nav Section */
+
+.nav-wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 3;
+	nav {
+		ul {
+			list-style: none;
+			padding: 0;
+			li {
+				display: block;
+				margin: 0;
+				border-bottom: 1px solid rgba(0,0,0,0.3);
+				a {
+					padding: 8px 16px;
+					background-color: rgba(0,0,0,0.4);
+					color: white;
+					font-size: 17px;
+					font-weight: 300;
+					@include single-transition(background, 0.3s, ease);
+					&:hover {
+						background-color: rgba(0,0,0,0.6);
+					}
+					&.currentPage {
+						background-color: rgba(0,0,0,0.2);
+					}
+				}
+				&:last-child {
+					border-bottom: none;
+					a {
+						border-bottom-right-radius: 6px;
+					}
+				}
+			}
+		}
+	}
+}
+
+/* Transitions */
+$animation-duration: 500ms;
+
+/* Default Enter/Leave */
+.ng-enter,
+.ng-leave {
+    @include single-transition(all, $animation-duration, ease);
+}
+.ng-enter {
+    opacity: 0;
+}
+.ng-enter.ng-enter-active {
+    opacity: 1;
+}
+.ng-leave {
+    opacity: 1;
+}
+.ng-leave.ng-leave-active {
+    opacity: 0;
+}
+/* noAnimation */
+.noAnimation.ng-enter,
+.noAnimation.ng-leave {
+    @include single-transition(none, 0, ease);
+    opacity: 1 !important;
+}
+/* moveRight */
+.moveRight.ng-enter {
+    @include translate(100%, 0);
+}
+.moveRight.ng-enter.ng-enter-active {
+    @include translate(0, 0);
+}
+.moveRight.ng-leave {
+    @include translate(0, 0);
+}
+.moveRight.ng-leave.ng-leave-active {
+    @include translate(-100%, 0);
+}
+/* moveLeft */
+.moveLeft.ng-enter {
+    @include translate(-100%, 0);
+}
+.moveLeft.ng-enter.ng-enter-active {
+    @include translate(0, 0);
+}
+.moveLeft.ng-leave {
+    @include translate(0, 0);
+}
+.moveLeft.ng-leave.ng-leave-active {
+    @include translate(100%, 0);
+}
+/* moveUp */
+.moveUp.ng-enter {
+    @include translate(-100%, 0);
+}
+.moveUp.ng-enter.ng-enter-active {
+    @include translate(0, 0);
+}
+.moveUp.ng-leave {
+    @include translate(0, 0);
+}
+.moveUp.ng-leave.ng-leave-active {
+    @include translate(100%, 0);
+}
+/* moveUp */
+.moveUp.ng-enter {
+    @include translate(0, -100%);
+}
+.moveUp.ng-enter.ng-enter-active {
+    @include translate(0, 0);
+}
+.moveUp.ng-leave {
+    @include translate(0, 0);
+}
+.moveUp.ng-leave.ng-leave-active {
+    @include translate(0, 100%);
+}
+/* moveDown */
+.moveDown.ng-enter {
+    @include translate(0, 100%);
+}
+.moveDown.ng-enter.ng-enter-active {
+    @include translate(0, 0);
+}
+.moveDown.ng-leave {
+    @include translate(0, 0);
+}
+.moveDown.ng-leave.ng-leave-active {
+    @include translate(0, -100%);
+}

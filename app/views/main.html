@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="small-12 columns">
+    <section class="home-wrapper">
+      <h1>Title</h1>
+      <div class="map">
+        <ul class="pictures">
+          <li ng-class="{'intro': painting.id == 'intro', 'disabled': painting.id == 'null'}" ng-repeat="painting in paintings">
+            <a href="#/paintings/{{painting.id}}"></a>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</div>

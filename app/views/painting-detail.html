@@ -1,12 +1,14 @@
 <section class="paintings-wrapper">
-  <div class="painting">
-    <img ng-src="{{painting.img}}" />
+  <div class="painting" ng-class="{'intro': painting.id == 'intro'}">
+    <img class="paint" ng-src="{{painting.img}}" />
     <img class="detail" ng-src="{{painting.detail}}"/>
     <aside class="informations">
-      <p>{{painting.size}}</p>
-      <p>{{painting.year}}</p>
-      <p>{{painting.technique}}</p>
-      <p>{{painting.title}}</p>
+      <p class="title">{{painting.title}}</p>
+      <p class="year">{{painting.year}}</p>
+      <p class="size">{{painting.size}}</p>
+      <p class="tech">{{painting.technique}}</p>
+      <p class="desc">{{painting.description}}</p>
+      <p ng-show="painting.available" class="disp">Disponibile</p>
     </aside>
   </div>
 </section>

@@ -23,6 +23,12 @@ $column-gutter: 0;
 	bottom: $y;
 }
 
+%shadowed {
+	-webkit-box-shadow: 0 2px 40px rgba(0,0,0,.4);
+	-moz-box-shadow: 0 2px 40px rgba(0,0,0,.4);
+	box-shadow: 0 2px 40px rgba(0,0,0,.4);
+}
+
 /* Body Overflow helper class */
 .overflow {
 	overflow: visible;
@@ -33,15 +39,21 @@ $column-gutter: 0;
 
 .container-wrapper {
 	overflow: hidden;
+	&.noOverflow {
+		overflow: visible;
+	}
 }
 .container {
 	position: absolute;
 	top: 0; left: 0; right: 0;
 	z-index: 2;
-    margin: 0 auto;
-    -webkit-backface-visibility: hidden;
-    overflow: hidden;
-    color: #000;
+  margin: 0 auto;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+  color: #000;
+  &.noOverflow {
+		overflow: visible;
+	}
 }
 
 /* Home Section */
@@ -49,7 +61,80 @@ $column-gutter: 0;
 $leaf-size: 28px;
 
 .home-wrapper {
+	position: relative;
+	width: 80%;
 	text-align: left;
+	border: 2px solid #000;
+	margin: 0 auto;
+	> h1 {
+		position: absolute;
+		display: inline-block;
+		font-family: 'Yanone Kaffeesatz', sans-serif;
+		padding-left: 10%;
+		text-transform: uppercase;
+		font-weight: normal;
+		font-size: 64px;
+		letter-spacing: 1px;
+		color: #282828;
+		margin: 80px 0;
+	}
+	$s: 64px;
+	.logo {
+		position: absolute;
+		display: inline-block;
+		width: $s;
+		height: $s;
+		padding: 4px;
+		margin: 92px 0;
+		margin-left: 4%;
+		background-color: rgba(0,0,0,0.4);
+		border-radius: $s;
+		@include single-transition(background, 0.3s, ease);
+		&:hover {
+			background-color: rgba(0,0,0,0.6);
+		}
+	}
+	.quote {
+		width: 12%;
+		position: absolute;
+		bottom: 4%;
+		right: 10%;
+		> p {
+			text-transform: uppercase;
+			font-family: 'Yanone Kaffeesatz', sans-serif;
+			font-size: 34px;
+			text-align: justify;
+			font-weight: 700;
+			line-height: 26px;
+		}
+	}
+	> nav {
+		position: absolute;
+		margin-top: 230px;
+		margin-left: 9%;
+		border-radius: 10px;
+		ul {
+			li {
+				padding: 8px 0;
+				a {
+					font-family: 'Syncopate', sans-serif;
+					$color: #282828;
+					border-bottom: 1px solid $color;
+					font-size: 16px;
+					font-weight: 400;
+					letter-spacing: 1px;
+					text-transform: uppercase;
+					color: $color;
+					@include single-transition(all, 0.3s, ease);
+					$hover-color: #6F6F6F;
+					&:hover {
+						color: $hover-color;
+						border-bottom-color: $hover-color;
+					}
+				}
+			}
+		}
+	}
 }
 
 /* Map Styles */
@@ -67,7 +152,12 @@ $leaf-size: 28px;
 			display: block;
 			width: $leaf-size;
 			height: $leaf-size;
-			a {	
+			opacity: 1;
+			@include single-transition(opacity, 0.3s, ease);
+			&:hover {
+				opacity: 0.6;
+			}
+			a {
 				display: block;
 				width: $leaf-size;
 				height: $leaf-size;
@@ -102,17 +192,30 @@ $leaf-size: 28px;
 			&:nth-child(27) { @include position(36%, 61%); }
 			&.intro {
 				a {
-					background: none;
+					width: 64px;
+					height: 64px;
+					background: url('../images/logo.png') no-repeat center center;
 					border-radius: 50%;
-					background-color: rgba(0,0,0,0.2);
+					opacity: 1;
+					background-color: rgba(0,0,0,0.4);
+					@include single-transition(background, 0.3s, ease);
+					&:hover {
+						background-color: rgba(0,0,0,0.6);
+					}
 				}
-				@include position(48%, 45%);
+				&:hover {
+					opacity: 1;
+				}
+				@include position(46%, 48%);
 			}
 			&.disabled {
 				background: url('../images/leaf-disabled.png') center center no-repeat;
 				background-size: 100%;
 				a {
 					display: none;
+				}
+				&:hover {
+					opacity: 1;
 				}
 			}
 		}
@@ -123,9 +226,10 @@ $leaf-size: 28px;
 
 $wrapper-width: 80%;
 $painting-width: 40%;
+$intro-width: 100%;
 $detail-width: 28%;
 $information-width: 20%;
-$information-offset: 10%;
+$information-offset: 5%;
 
 .paintings-wrapper {
 	position: absolute;
@@ -135,22 +239,49 @@ $information-offset: 10%;
 	width: $wrapper-width;
 	text-align: center;
 	overflow: hidden;
+	padding: 40px;
 	.painting {
 		width: $painting-width;
 		margin: 0 auto;
+		> img:first-child {
+			opacity: 1;
+			@include single-transition(opacity, 0.5s, ease);
+			&:hover {
+				opacity: 0.4;
+			}
+		}
+		.paint {
+			@extend %shadowed;
+			z-index: 3;
+		}
 		.detail {
 			position: absolute;
-			top: 0;
+			top: 40px;
 			right: 0;
 			width: $detail-width;
 			border-radius: 20px;
+			@extend %shadowed;
 		}
 		aside {
 			width: $information-width;
 			position: absolute;
-			right: 0;
+			right: 5%;
 			bottom: $information-offset;
 			text-align: left;
+			> p {
+				line-height: 21px;
+				margin-bottom: 12px;
+				font-size: 19px;
+			}
+			.title {
+				font-weight: bold;
+			}
+			.disp {
+				font-size: 17px;
+				letter-spacing: 1px;
+				text-transform: uppercase;
+				color: #BE0000;
+			}
 		}
 	}
 }
@@ -197,15 +328,16 @@ $arrows-offset: 2%;
 
 /* Minimap for the Paintings Section */
 
-$leaf-size: 12px;
+$leaf-size: 28px;
 
 .minimap-wrapper {
 	position: absolute;
-	bottom: 0;
-	left: 0;
-	width: 20%;
-	z-index: 1;
+	left: 0; right: 0;
+	margin: 0 auto;
+	width: 100%;
+	z-index: 2;
 	.map {
+		width: 100%;
 		.pictures {
 			li {
 				width: $leaf-size;
@@ -218,6 +350,21 @@ $leaf-size: 12px;
 						background-size: 100%;
 					}
 				}
+				&.intro {
+					a {
+						width: 64px;
+						height: 64px;
+						background: url('../images/logo.png') no-repeat center center;
+						border-radius: 50%;
+						opacity: 1;
+						background-color: rgba(0,0,0,0.4);
+						@include single-transition(background, 0.3s, ease);
+						&:hover {
+							background-color: rgba(0,0,0,0.6);
+						}
+					}
+					@include position(46%, 48%);
+				}
 			}
 		}
 		&:before {
@@ -228,39 +375,126 @@ $leaf-size: 12px;
 	}
 }
 
+.inspirations-wrapper {
+	.pics {
+		overflow: hidden;
+		margin: 0 0 40px 0;
+		width: 100%;
+		list-style: none;
+		text-align: center;
+		li {
+			position: relative;
+			z-index: 1;
+			display: inline-block;
+			margin: 30px 0;
+			img {
+				position: relative;
+				display: block;
+			}
+			figcaption {
+				padding: 2em;
+				color: #fff;
+				text-transform: uppercase;
+				font-size: 1.25em;
+				-webkit-backface-visibility: hidden;
+				backface-visibility: hidden;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+			}
+			h2 {
+			}
+			p {
+			}
+			&:hover {
+				img {
+				}
+				h2 {
+				}
+				p {
+				}
+			}
+			&.style0 {
+				width: 58%;
+			}
+			&.style1 {
+				margin-left: 4%;
+				width: 38%;
+			}
+			&.style2 {
+				width: 46%;
+			}
+			&.style3 {
+				width: 28%;
+				margin-left: 26%;
+			}
+			&.style4, &.style5 {
+				width: 100%;
+			}
+		}
+	}
+}
+
+.contacts-wrapper {
+	> h1 {
+		margin: 40px 0 60px 0;
+	}
+	.contact-image {
+		border-radius: 16px;
+		@extend %shadowed;
+	}
+	.email {
+		margin-top: 40px;
+		> h2 {
+			display: inline-block;
+			font-weight: bold;
+			text-transform: uppercase;
+			font-size: 26px;
+			letter-spacing: 1px;
+		}
+		> a {
+			font-size: 19px;
+			padding-left: 20px;
+			color: #646464;
+			@include single-transition(color, 0.3s, ease);
+			&:hover {
+				color: #323232;
+			}
+		}
+	}
+}
+
 /* Nav Section */
 
 .nav-wrapper {
 	position: absolute;
-	top: 0;
-	left: 0;
+	top: 64px;
+	left: 10%;
 	z-index: 3;
 	nav {
 		ul {
 			list-style: none;
 			padding: 0;
 			li {
+				$s: 32px;
 				display: block;
-				margin: 0;
-				border-bottom: 1px solid rgba(0,0,0,0.3);
+				margin: 5px;
 				a {
-					padding: 8px 16px;
+					padding: $s;
+					background: no-repeat center center;
 					background-color: rgba(0,0,0,0.4);
-					color: white;
-					font-size: 17px;
-					font-weight: 300;
+					border-radius: $s;
 					@include single-transition(background, 0.3s, ease);
+					&.home { background-image: url('../images/logo.png'); }
+					&.paint { background-image: url('../images/insp.png'); }
+					&.contacts { background-image: url('../images/us.png'); }
 					&:hover {
 						background-color: rgba(0,0,0,0.6);
 					}
 					&.currentPage {
 						background-color: rgba(0,0,0,0.2);
-					}
-				}
-				&:last-child {
-					border-bottom: none;
-					a {
-						border-bottom-right-radius: 6px;
 					}
 				}
 			}

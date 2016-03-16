@@ -19,9 +19,9 @@ angular.module('francyWebApp', [
         templateUrl: 'views/contacts.html',
         controller: 'ContactsCtrl'
       })
-      .when('/photos/:photoId', {
-        templateUrl: 'views/photo-detail.html',
-        controller: 'PhotoDetailCtrl'
+      .when('/inspirations', {
+        templateUrl: 'views/inspirations.html',
+        controller: 'InspirationsCtrl'
       })
       .otherwise({
         redirectTo: '/'

@@ -6,11 +6,13 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title ng-bind-template="Title | {{subtitle}}">Title</title>
+    <title ng-bind-template="Gagim | {{subtitle}}">Gagim</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css({.tmp,app}) css/index.css -->
+    <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700' rel='stylesheet' type='text/css' />
+    <link href='http://fonts.googleapis.com/css?family=Syncopate:700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/index.css">
     <!-- endbuild -->
   </head>
@@ -20,7 +22,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container-wrapper">    
+    <div class="container-wrapper" ng-class="{noOverflow: currentPage == 'inspirations', noOverflow: currentPage == 'contacts'}">    
           <!-- Arrows for the paintings section -->
           <div ng-show="paintingsVisible" class="arrows">
             <a class="up" ng-if="topLimit" ng-click="goPainting('up')">^</a>
@@ -41,15 +43,14 @@
           <div class="nav-wrapper">
             <nav>
               <ul class="side-nav">
-                <li><a ng-class="{currentPage: currentPage == 'home'}" href="/">Home</a></li>
-                <li><a ng-class="{currentPage: currentPage == 'paintings'}" href="#/paintings/intro">Paintings</a></li>
-                <li><a ng-class="{currentPage: currentPage == 'photos'}" href="#/photos/intro">Photos</a></li>
-                <li><a ng-class="{currentPage: currentPage == 'contacts'}" href="#/contacts">Contacts</a></li>
+                <li><a class="home" ng-class="{currentPage: currentPage == 'home'}" href="/"></a></li>
+                <li><a class="paint" ng-class="{currentPage: currentPage == 'inspirations'}" href="#/inspirations"></a></li>
+                <li><a class="contacts" ng-class="{currentPage: currentPage == 'contacts'}" href="#/contacts"></a></li>
               </ul>
             </nav>
           </div>
           <!-- View container -->
-          <div class="container" ng-view ng-class="pageAnimationClass"></div>
+          <div class="container" ng-view ng-class="pageAnimationClass; {noOverflow: currentPage == 'inspirations'}"></div>
     </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->

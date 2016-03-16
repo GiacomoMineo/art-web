@@ -51,6 +51,7 @@ paintingsModule.factory('paintings', ['$http', '$rootScope',
 
 paintingsModule.controller('HomeCtrl', ['$scope', '$http', '$rootScope', 'paintings',
   function ($scope, $http, $rootScope, paintings) {
+    $('.nav-wrapper').hide(0);
   	resizeHeights();
     $rootScope.currentPage = 'home';
   	$rootScope.paintingsVisible = false;
@@ -71,6 +72,7 @@ paintingsModule.controller('HomeCtrl', ['$scope', '$http', '$rootScope', 'painti
 
 paintingsModule.controller('MinimapCtrl', ['$scope', '$rootScope', '$http', 'paintings', 
   function($scope, $rootScope, $http, paintings) {
+    $('.nav-wrapper').show(0);
     $http.get('data/paintings.json').success(function(data) {
       $scope.paintings = data;
     });
@@ -81,6 +83,7 @@ paintingsModule.controller('MinimapCtrl', ['$scope', '$rootScope', '$http', 'pai
 
 paintingsModule.controller('PaintingDetailCtrl', ['$scope', '$routeParams', '$http', '$window', '$rootScope', '$location', 'paintings',
   function($scope, $routeParams, $http, $window, $rootScope, $location, paintings) {
+    $('.nav-wrapper').show(0);
   	$rootScope.paintingsVisible = true;
     $rootScope.currentPage = 'paintings';
   	$rootScope.bodyOverflow = 'no-overflow';
@@ -101,36 +104,8 @@ paintingsModule.controller('PaintingDetailCtrl', ['$scope', '$routeParams', '$ht
       $rootScope.currentPainting = thisPainting;
     });
 
-    // jQuery Keypress event
-    /*angular.element($window).on('keyup', function(e) {
-        switch(e.keyCode) {
-          case 37:
-            if($rootScope.leftLimit) {
-              $rootScope.goPainting('left');
-            }
-            break;
-          case 38:
-            if($rootScope.topLimit) {
-              $rootScope.goPainting('up');
-            }
-            break;
-          case 39:
-            if($rootScope.rightLimit) {
-              $rootScope.goPainting('right');
-            }
-            break;
-          case 40:
-            if($rootScope.bottomLimit) {
-              $rootScope.goPainting('down');
-            }
-            break;
-          default:
-            break;
-        }
-        $scope.$apply();
-    });*/
-
     $rootScope.goPainting = function (direction) {
+      $(".minimap-wrapper .map").hide(0).delay(500).show(0);
       if (typeof(pageAnimationClass) === 'undefined') { // Default animation
         $rootScope.pageAnimationClass = 'noAnimation';
       } 
@@ -222,16 +197,34 @@ paintingsModule.directive('onKeyup', ['$rootScope', '$location',
     };
   }]);
 
-paintingsModule.controller('PhotoDetailCtrl', ['$scope', '$rootScope',
-  function($scope, $rootScope) {
-    $rootScope.currentPage = 'photos';
+paintingsModule.controller('InspirationsCtrl', ['$scope', '$rootScope', '$http',
+  function($scope, $rootScope, $http) {
+    $('.nav-wrapper').show(0);
+    $rootScope.currentPage = 'inspirations';
+    $rootScope.subtitle = 'Inspirations';
     $rootScope.paintingsVisible = false;
-  }]);
 
+    var photosDataPath = 'data/inspiration.json';
+
+    $http.get(photosDataPath).success(function(data) {
+      $scope.photos = data;
+      var j = 0;
+      for(var i = 0; i < $scope.photos.length; i++) {
+        $scope.photos[i]['style'] = "style" + j;
+        if (j != 5) {
+          j++
+        } else {
+          j = 0;
+        }
+      }
+    });
+  }]);
 
 paintingsModule.controller('ContactsCtrl', ['$scope', '$rootScope',
   function($scope, $rootScope) {
+    $('.nav-wrapper').show(0);
     $rootScope.currentPage = 'contacts';
+    $rootScope.subtitle = 'Contacts';
     $rootScope.paintingsVisible = false;
   }]);
 
@@ -246,12 +239,15 @@ function resizeHeights() {
 	$(".arrows").css("height", h);
 	$(".container").css("height", h);
   $(".painting").css("height", w*proportionCoeff);
-  $(".paintings-wrapper").css('top', offsetTop + "px");
-  $(".map").css('height', h*0.7);
+  $(".paintings-wrapper").css('top', offsetTop-40 + "px");
+  $(".home-wrapper").css('height', h*0.9);
+  $(".home-wrapper").css('margin-top', h*0.05);
+  $(".home-wrapper .map").css('top', h*0.05);
+  $(".map").css('height', h*0.8);
   $(".map").css('width', $('.map').height());
-  $(".minimap-wrapper").css('height', h*0.3);
-  $(".minimap-wrapper > .map").css('height', $(".minimap-wrapper").height());
-  $(".minimap-wrapper > .map").css('width', $(".minimap-wrapper > .map").height());
+  $(".minimap-wrapper .map").css('height', w*proportionCoeff);
+  $(".minimap-wrapper .map").css('width', $('.minimap-wrapper .map').height());
+  $(".minimap-wrapper").css('top', offsetTop + "px");
 }
 
 $(window).on('load resize', function(){

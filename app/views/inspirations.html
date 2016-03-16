@@ -1,0 +1,18 @@
+<div class="row inspirations-wrapper">
+  <div class="small-12 columns">
+    <section class="contacts-wrapper">
+      <h1>Inspirations</h1>
+      <div class="row">
+      	<ul class="pics">
+      		<li class="{{p.style}}" ng-repeat="p in photos">
+      			<img ng-src="../public/inspiration/{{p.filename}}">
+	      		<figcaption>
+	            <h2>{{p.title}}</h2>
+	            <p>{{p.quote}}</p>
+	        	</figcaption>
+        	</li>
+      	</ul>
+      </div>
+    </section>
+  </div>
+</div>
